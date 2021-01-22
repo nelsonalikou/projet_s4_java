@@ -10,14 +10,35 @@ import chess.util.Color;
 /**
  * @author ALIKOU DONGMO NELSON
  *
+ * Classe de base représentant une pièce du jeu d'échecs
  */
 public class Piece {
 
-		private Position position;
-		private char symbol;
-		private Color color;
-		private String Name;
-		protected Chessboard board;
+	/**
+	 * Position de la pièce sur l'échiquier
+	 */
+	private Position position;
+
+	/**
+	 * Symbole devant representer la pièce sur le plateau de jeu.
+	 */
+	private char symbol;
+
+	/**
+	 * Couleur de la pièce (Color.WHITE ou Color.BLACK)
+	 */
+	private Color color;
+
+	/**
+	 * Nom de la pièce (Roi, Reine, ...)
+	 */
+	private String Name;
+
+
+	/**
+	 * Echiquier auquel la pièce appartient
+	 */
+	protected Chessboard board;
 
 
 		/**

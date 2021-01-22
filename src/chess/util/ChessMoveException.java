@@ -10,7 +10,13 @@ package chess.util;
  */
 public class ChessMoveException extends Exception{
 
-	public ChessMoveException(String message, Position position1, Position Position2) {
+	/**
+	 * Constructeur.
+	 * @param message
+	 * @param startingPosition
+	 * @param destination
+	 */
+	public ChessMoveException(String message, Position startingPosition, Position destination) {
 		super(message);
 		// TODO Auto-generated constructor stub
 	}
