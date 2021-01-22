@@ -1,7 +1,7 @@
 /**
  *
  */
-package util;
+package chess.util;
 
 /**
  * @author ALIKOU DONGMO NELSON
