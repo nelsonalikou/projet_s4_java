@@ -124,6 +124,25 @@ public class Position {
 		return Math.abs(otherPosition.x - this.x) + Math.abs(otherPosition.y - this.y);
 	}
 
+
+	public String toString() {
+		   return " " + toAlgebraicNotation();
+	}
+
+	public boolean equals(Object obj) {
+        if (obj == null) return false;
+
+        if( ! (obj instanceof Position) ) return false;
+
+        Position otherPosition = (Position) obj;
+
+        return (this.x != 0 && this.y != 0) ? (this.x == otherPosition.x && this.y == otherPosition.y) : (otherPosition.x == 0 && otherPosition.y == 0);
+    }
+
+	public int hashCode() {
+        return (x == 0 && y == 0) ? 0 : 1;
+    }
+
 	/**
 	 * Retourne une chaîne contenant la représentation de la position courante en notation algébrique
 	 * @return représentation de la position courante en notation algébrique
