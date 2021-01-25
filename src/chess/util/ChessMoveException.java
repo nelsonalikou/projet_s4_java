@@ -17,8 +17,7 @@ public class ChessMoveException extends Exception{
 	 * @param destination
 	 */
 	public ChessMoveException(String message, Position startingPosition, Position destination) {
-		super(message);
-		// TODO Auto-generated constructor stub
+		super(message + startingPosition.toString() + destination.toString());
 	}
 
 }
