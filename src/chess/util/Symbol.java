@@ -18,7 +18,7 @@ public class Symbol {
 	/**
 	 * Symbole de la reine blanche (code UTF-16 : 0x2655)
 	 */
-	public static final char WHITE_QEEN = 0x2655;
+	public static final char WHITE_QUEEN = 0x2655;
 
 	/**
 	 * Symbole de la tour blanche (code UTF-16 : 0x2656)
@@ -48,7 +48,7 @@ public class Symbol {
 	/**
 	 * Symbole de la reine noire (code UTF-16 : 0x265B)
 	 */
-	public static final char BLACK_QEEN = 0x265B;
+	public static final char BLACK_QUEEN = 0x265B;
 
 	/**
 	 * Symbole de la tour noire (code UTF-16 : 0x265C)

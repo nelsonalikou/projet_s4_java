@@ -117,13 +117,18 @@ public abstract class Piece {
 		 */
 		public void moveTo(Position destination) throws ChessMoveException{
 			try {
-				this.board.getPiece(destination);
+				this.board.setPiece(destination,this);
 				}
 			catch (IllegalArgumentException e) {
 				throw new ChessMoveException("Déplacement impossible",getPosition(),destination);
 			}
 		}
 
+		/**
+		 * teste la validité d'un déplacement
+		 * @param destination position de la case de destination du déplacement
+		 * @return true si le mouvement est possible, false sinon
+		 */
 		public abstract boolean isValidMove(Position destination);
 
 

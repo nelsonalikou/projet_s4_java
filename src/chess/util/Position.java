@@ -112,7 +112,7 @@ public class Position {
 	 * @return true si laposition courante est sur la même diagonale que otherPosition
 	 */
 	public boolean isOnSameDiagonalAs(Position otherPosition){
-		return (this.x - otherPosition.x) == (this.y - otherPosition.y);
+		return Math.abs(otherPosition.x - this.x) == Math.abs(otherPosition.y - this.y);
 	}
 
 	/**
