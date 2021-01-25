@@ -5,6 +5,7 @@ package chess.pieces;
 
 import chess.Chessboard;
 import chess.util.Position;
+import chess.util.ChessMoveException;
 import chess.util.Color;
 
 /**
@@ -12,7 +13,7 @@ import chess.util.Color;
  *
  * Classe de base représentant une pièce du jeu d'échecs
  */
-public class Piece {
+public abstract class Piece {
 
 	/**
 	 * Position de la pièce sur l'échiquier
@@ -32,7 +33,7 @@ public class Piece {
 	/**
 	 * Nom de la pièce (Roi, Reine, ...)
 	 */
-	private String Name;
+	private String name;
 
 
 	/**
@@ -40,9 +41,27 @@ public class Piece {
 	 */
 	protected Chessboard board;
 
+	/**
+	 * Constructeur
+	 * @param chessboard échiquier auquel la pièce appartient
+	 * @param position position initiale de la pièce
+	 * @param color couleur de la pièce
+	 * @param name nom de la pièce
+	 * @param symbol symbole de la pièce
+	 */
+	public Piece(Chessboard chessboard, Position position, Color color, String name, char symbol){
+
+		this.board = chessboard;
+		this.position = position;
+		this.color = color;
+		this.name = name;
+		this.symbol = symbol;
+
+	}
 
 		/**
-		 * @return the position
+		 * Retourne la position de la pièce sur l'échiquier.
+		 * @return la position de la pièce sur l'échiquier
 		 */
 		public Position getPosition() {
 			return position;
@@ -50,7 +69,8 @@ public class Piece {
 
 
 		/**
-		 * @return the symbol
+		 * Retourne le symbole de la pièce
+		 * @return le symbole de la pièce
 		 */
 		public char getSymbol() {
 			return symbol;
@@ -58,7 +78,8 @@ public class Piece {
 
 
 		/**
-		 * @return the color
+		 * Retourne la couleur de la pièce
+		 * @return la couleur de la pièce
 		 */
 		public Color getColor() {
 			return color;
@@ -66,10 +87,45 @@ public class Piece {
 
 
 		/**
-		 * @return the name
+		 * Retourne le nom de la pièce.
+		 * @return le nom de la pièce
 		 */
 		public String getName() {
-			return Name;
+			return name;
 		}
+
+		/**
+		 * teste la couleur de la pièce.
+		 * @return true si la pièce est noire, false sinon
+		 */
+		public boolean isBlack() {
+			return this.color == Color.BLACK;
+		}
+
+		/**
+		 * teste la couleur de la pièce.
+		 * @return true si la pièce est blanche, false sinon
+		 */
+		public boolean isWhite() {
+			return this.color == Color.WHITE;
+		}
+
+		/**
+		 * deplace la pièce sur la case indiquée.
+		 * @param destination position de la case de destination du déplacement.
+		 * @throws ChessMoveException si le mouvement n'est pas possible
+		 */
+		public void moveTo(Position destination) throws ChessMoveException{
+			try {
+				this.board.getPiece(destination);
+				}
+			catch (IllegalArgumentException e) {
+				throw new ChessMoveException("Déplacement impossible",getPosition(),destination);
+			}
+		}
+
+		public abstract boolean isValidMove(Position destination);
+
+
 
 }

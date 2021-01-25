@@ -27,7 +27,7 @@ public class Position {
 	 */
 	public Position(int x, int y){
 		if (x < 1 || y < 1 || x > 8 || y > 8){
-			throw new IllegalArgumentException("Position invalide");
+			throw new IllegalArgumentException("Position invalide" + x + " " + y);
 		}
 		this.x = x - 1;
 		this.y = y - 1;
