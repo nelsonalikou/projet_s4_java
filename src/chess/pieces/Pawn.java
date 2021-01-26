@@ -23,7 +23,7 @@ public class Pawn extends Piece{
 	 * Constructeur.
 	 */
 	public Pawn(Chessboard chessboard, Position position, Color color) {
-		super(chessboard, position, color, "PAWN", Symbol.BLACK_PAWN);
+			super(chessboard, position, color, "PAWN", Symbol.BLACK_PAWN);
 	}
 
 	@Override

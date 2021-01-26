@@ -49,10 +49,19 @@ public class Chessboard {
 	 * @return vraie si la pièce est effectivement présente sur cette colonne
 	 */
 	public boolean isPiecePresentOnSameColumnBetween(Position start, Position end){
+		boolean present = false;
 		if(!start.isOnSameColumnAs(end))
 			throw new IllegalArgumentException("start Position or end Position invalide");
 
-		return start.isOnSameColumnAs(end);
+		int cpt = 0;
+		while(cpt < this.pieces[start.getX()].length && present){
+			if(this.pieces[start.getX()][cpt] != null){
+				present = true;
+			}
+			cpt++;
+		}
+
+		return present;
 	}
 
 	/**
@@ -62,10 +71,21 @@ public class Chessboard {
 	 * @return vraie si la pièce est effectivement présente sur cette diagonale
 	 */
 	public boolean isPiecePresentOnSameDiagonalBetween(Position start, Position end){
+		boolean present = false;
 		if(!start.isOnSameDiagonalAs(end))
 			throw new IllegalArgumentException("start Position or end Position invalide");
 
-		return start.isOnSameDiagonalAs(end);
+		int cpt = 0;
+		while(cpt < this.pieces[start.getX()].length && present){
+			if(this.pieces[start.getX()][cpt] != null){
+				present = true;
+			}
+			cpt++;
+		}
+
+		//TODO
+
+		return present;
 	}
 
 	/**
@@ -75,10 +95,19 @@ public class Chessboard {
 	 * @return vraie si la pièce est effectivement présente sur cette ligne
 	 */
 	public boolean isPiecePresentOnSameLineBetween(Position start, Position end){
+		boolean present = false;
 		if(!start.isOnSameLineAs(end))
 			throw new IllegalArgumentException("start Position or end Position invalide");
 
-		return start.isOnSameLineAs(end);
+		int cpt = 0;
+		while(cpt < this.pieces[start.getY()].length && present){
+			if(this.pieces[cpt][start.getY()] != null){
+				present = true;
+			}
+			cpt++;
+		}
+
+		return present;
 	}
 
 	/**
@@ -95,44 +124,44 @@ public class Chessboard {
 	 */
 	public String toString(){
 		char[] lettres = {'A','B','C','D','E','F','G','H'};
-		String board="";
+		StringBuilder board = new StringBuilder(5000);
 
 		//Affichage des lettres
 		for (char c : lettres) {
-			board += " " + c;
+			board.append(" " + c);
 		}
 
 		for(int n=0; n < this.pieces.length; n++){
-			board += "┏━━━";
+			board.append("┏━━━");
 			if (n == this.pieces.length)
 			{
-				board += "┳━━━┓";
+				board.append("┳━━━┓");
 			}
 		}
 
 		for(int lignes=0; lignes < this.pieces.length; lignes++){
 			for(int colonnes=0; colonnes < this.pieces[lignes].length; colonnes++){
-				board += this.pieces[lignes].length - colonnes;
-				board += "┃" + this.pieces[lignes][lignes].toString();
+				board.append(this.pieces[lignes].length - colonnes);
+				board.append("┃" + this.pieces[lignes][lignes].toString());
 				if (colonnes == this.pieces[lignes].length)
 				{
-					board += "┃" + this.pieces[lignes][colonnes].toString() + "┃" + (this.pieces[lignes].length - colonnes);
+					board.append("┃" + this.pieces[lignes][colonnes].getSymbol() + "┃" + (this.pieces[lignes].length - colonnes));
 				}
 			}
 		}
 
 		for(int m=0; m < this.pieces.length; m++){
-			board += "┗━━━";
+			board.append("┗━━━");
 			if (m == this.pieces.length)
 			{
-				board += "┻━━━┛";
+				board.append("┻━━━┛");
 			}
 		}
 
 		for (char c : lettres) {
-			board += " " + c;
+			board.append(" " + c);
 		}
-		return board;
+		return board.toString();
 	}
 
 }
