@@ -11,43 +11,43 @@ import chess.util.Color;
 /**
  * @author ALIKOU DONGMO NELSON
  *
- * Classe de base représentant une pièce du jeu d'échecs
+ * Classe de base reprï¿½sentant une piï¿½ce du jeu d'ï¿½checs
  */
 public abstract class Piece {
 
 	/**
-	 * Position de la pièce sur l'échiquier
+	 * Position de la piï¿½ce sur l'ï¿½chiquier
 	 */
 	private Position position;
 
 	/**
-	 * Symbole devant representer la pièce sur le plateau de jeu.
+	 * Symbole devant representer la piï¿½ce sur le plateau de jeu.
 	 */
 	private char symbol;
 
 	/**
-	 * Couleur de la pièce (Color.WHITE ou Color.BLACK)
+	 * Couleur de la piï¿½ce (Color.WHITE ou Color.BLACK)
 	 */
 	private Color color;
 
 	/**
-	 * Nom de la pièce (Roi, Reine, ...)
+	 * Nom de la piï¿½ce (Roi, Reine, ...)
 	 */
 	private String name;
 
 
 	/**
-	 * Echiquier auquel la pièce appartient
+	 * Echiquier auquel la piï¿½ce appartient
 	 */
 	protected Chessboard board;
 
 	/**
 	 * Constructeur
-	 * @param chessboard échiquier auquel la pièce appartient
-	 * @param position position initiale de la pièce
-	 * @param color couleur de la pièce
-	 * @param name nom de la pièce
-	 * @param symbol symbole de la pièce
+	 * @param chessboard ï¿½chiquier auquel la piï¿½ce appartient
+	 * @param position position initiale de la piï¿½ce
+	 * @param color couleur de la piï¿½ce
+	 * @param name nom de la piï¿½ce
+	 * @param symbol symbole de la piï¿½ce
 	 */
 	public Piece(Chessboard chessboard, Position position, Color color, String name, char symbol){
 
@@ -57,11 +57,13 @@ public abstract class Piece {
 		this.name = name;
 		this.symbol = symbol;
 
+		this.board.setPiece(position, this);
+
 	}
 
 		/**
-		 * Retourne la position de la pièce sur l'échiquier.
-		 * @return la position de la pièce sur l'échiquier
+		 * Retourne la position de la piï¿½ce sur l'ï¿½chiquier.
+		 * @return la position de la piï¿½ce sur l'ï¿½chiquier
 		 */
 		public Position getPosition() {
 			return position;
@@ -69,8 +71,8 @@ public abstract class Piece {
 
 
 		/**
-		 * Retourne le symbole de la pièce
-		 * @return le symbole de la pièce
+		 * Retourne le symbole de la piï¿½ce
+		 * @return le symbole de la piï¿½ce
 		 */
 		public char getSymbol() {
 			return symbol;
@@ -78,8 +80,8 @@ public abstract class Piece {
 
 
 		/**
-		 * Retourne la couleur de la pièce
-		 * @return la couleur de la pièce
+		 * Retourne la couleur de la piï¿½ce
+		 * @return la couleur de la piï¿½ce
 		 */
 		public Color getColor() {
 			return color;
@@ -87,46 +89,44 @@ public abstract class Piece {
 
 
 		/**
-		 * Retourne le nom de la pièce.
-		 * @return le nom de la pièce
+		 * Retourne le nom de la piï¿½ce.
+		 * @return le nom de la piï¿½ce
 		 */
 		public String getName() {
 			return name;
 		}
 
 		/**
-		 * teste la couleur de la pièce.
-		 * @return true si la pièce est noire, false sinon
+		 * teste la couleur de la piï¿½ce.
+		 * @return true si la piï¿½ce est noire, false sinon
 		 */
 		public boolean isBlack() {
 			return this.color == Color.BLACK;
 		}
 
 		/**
-		 * teste la couleur de la pièce.
-		 * @return true si la pièce est blanche, false sinon
+		 * teste la couleur de la piï¿½ce.
+		 * @return true si la piï¿½ce est blanche, false sinon
 		 */
 		public boolean isWhite() {
 			return this.color == Color.WHITE;
 		}
 
 		/**
-		 * deplace la pièce sur la case indiquée.
-		 * @param destination position de la case de destination du déplacement.
+		 * deplace la piï¿½ce sur la case indiquï¿½e.
+		 * @param destination position de la case de destination du dï¿½placement.
 		 * @throws ChessMoveException si le mouvement n'est pas possible
 		 */
 		public void moveTo(Position destination) throws ChessMoveException{
-			try {
-				this.board.setPiece(destination,this);
-				}
-			catch (IllegalArgumentException e) {
-				throw new ChessMoveException("Déplacement impossible",getPosition(),destination);
-			}
+			if (!isValidMove(destination))
+				throw new ChessMoveException("Dï¿½placement impossible",getPosition(),destination);
+			this.board.setPiece(destination,this);
+			this.board.setPiece(getPosition(), null);
 		}
 
 		/**
-		 * teste la validité d'un déplacement
-		 * @param destination position de la case de destination du déplacement
+		 * teste la validitï¿½ d'un dï¿½placement
+		 * @param destination position de la case de destination du dï¿½placement
 		 * @return true si le mouvement est possible, false sinon
 		 */
 		public abstract boolean isValidMove(Position destination);
