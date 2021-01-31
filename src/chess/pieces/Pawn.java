@@ -4,6 +4,7 @@
 package chess.pieces;
 
 import chess.Chessboard;
+import chess.util.ChessMoveException;
 import chess.util.Color;
 import chess.util.Position;
 import chess.util.Symbol;
@@ -15,7 +16,7 @@ import chess.util.Symbol;
 public class Pawn extends Piece{
 
 	/**
-	 * vrai si le pion n'a pas encore été déplacé.
+	 * vrai si le pion n'a pas encore ï¿½tï¿½ dï¿½placï¿½.
 	 */
 	boolean notMovedYet = true;
 
@@ -23,27 +24,29 @@ public class Pawn extends Piece{
 	 * Constructeur.
 	 */
 	public Pawn(Chessboard chessboard, Position position, Color color) {
-			super(chessboard, position, color, "PAWN", Symbol.BLACK_PAWN);
+			super(chessboard, position, color, "PAWN", (color == Color.BLACK) ? Symbol.BLACK_PAWN : Symbol.WHITE_PAWN);
 	}
 
 	@Override
 	public boolean isValidMove(Position destination) {
 		boolean valid = false;
-		if (this.getPosition().isOnSameColumnAs(destination)){
+		if (!this.board.isPiecePresentOnSameColumnBetween(getPosition(), destination)){
 			if(this.notMovedYet && this.getPosition().getManhattanDistance(destination) == 2){
 				valid = true;
 			}
 			else if(this.getPosition().getManhattanDistance(destination) == 1){
 				valid = true;
 			}
+		}else if(!this.board.isPiecePresentOnSameDiagonalBetween(getPosition(), destination) && this.getPosition().getManhattanDistance(destination) == 2){
+			valid = true;
 		}
 		return valid;
 	}
 
 	@Override
-	public void moveTo(Position destination){
+	public void moveTo(Position destination) throws ChessMoveException{
 		if(isValidMove(destination)){
-			this.moveTo(destination);
+			super.moveTo(destination);
 			this.notMovedYet = false;
 		}
 	}

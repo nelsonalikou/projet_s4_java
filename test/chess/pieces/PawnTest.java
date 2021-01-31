@@ -19,7 +19,7 @@ public class PawnTest {
 		//Position[] positions = {new Position("E5"),new Position(5,6),new Position(4,5),new Position(6,7)};
 		positions[0] = new Position("E1");
 		positions[1] = new Position(5,2);
-		positions[2] = new Position(6,1);
+		positions[2] = new Position(5,4);
 		positions[3] = new Position(5,3);
 		positions[4] = new Position(6,3);
 		positions[5] = new Position(6,5);
@@ -49,10 +49,13 @@ public class PawnTest {
 		assertFalse(pawns[0].isValidMove(positions[2]));
 	}
 
-	/*
+
 	@Test
 	public void isValidMove_TwoStepAfterStartInvalidMove() {
+		try {
 		assertFalse(pawns[1].isValidMove(positions[5]));
-	}*/
+		}
+		catch (IllegalArgumentException e) {}
+	}
 
 }
