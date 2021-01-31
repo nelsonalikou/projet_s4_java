@@ -15,7 +15,7 @@ import chess.util.Symbol;
 public class Knight extends Piece{
 
 	public Knight(Chessboard chessboard, Position position, Color color) {
-		super(chessboard, position, color, "KNIGHT", Symbol.BLACK_KNIGHT);
+		super(chessboard, position, color, "KNIGHT", (color == Color.BLACK) ? Symbol.BLACK_KNIGHT : Symbol.WHITE_KNIGHT);
 		// TODO Auto-generated constructor stub
 	}
 

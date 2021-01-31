@@ -15,8 +15,7 @@ import chess.util.Symbol;
 public class King extends Piece{
 
 	public King(Chessboard chessboard, Position position, Color color) {
-		super(chessboard, position, color, "KING", Symbol.BLACK_KING);
-		// TODO Auto-generated constructor stub
+		super(chessboard, position, color, "KING", (color == Color.BLACK) ? Symbol.BLACK_KING : Symbol.WHITE_KING );
 	}
 
 	@Override

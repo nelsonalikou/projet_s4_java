@@ -15,8 +15,7 @@ import chess.util.Symbol;
 public class Rook extends Piece{
 
 	public Rook(Chessboard chessboard, Position position, Color color) {
-		super(chessboard, position, color, "ROOK", Symbol.BLACK_ROOK);
-		// TODO Auto-generated constructor stub
+		super(chessboard, position, color, "ROOK", (color == Color.BLACK) ? Symbol.BLACK_ROOK : Symbol.WHITE_ROOK);
 	}
 
 	@Override
