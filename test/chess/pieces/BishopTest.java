@@ -53,7 +53,10 @@ public class BishopTest {
 
 	@Test
 	public void isValidMove_InvalidMove() {
-		assertFalse(bishops[1].isValidMove(positions[5]));
+		try {
+			assertFalse(bishops[1].isValidMove(positions[5]));
+		}
+		catch (IllegalArgumentException e) {}
 	}
 
 }
