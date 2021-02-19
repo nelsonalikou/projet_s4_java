@@ -17,14 +17,14 @@ public class QueenTest {
 	@Before
 	public void setUp() throws Exception {
 		positions[0] = new Position("E5");
-		positions[1] = new Position(8,5);
-		positions[2] = new Position(1,5);
-		positions[3] = new Position(5,1);
-		positions[4] = new Position(5,7);
-		positions[5] = new Position(8,8);
-		positions[6] = new Position(8,2);
-		positions[7] = new Position(2,8);
-		positions[8] = new Position(1,1);
+		positions[1] = new Position(7,4);
+		positions[2] = new Position(0,4);
+		positions[3] = new Position(4,0);
+		positions[4] = new Position(4,6);
+		positions[5] = new Position(7,7);
+		positions[6] = new Position(7,1);
+		positions[7] = new Position(1,7);
+		positions[8] = new Position(0,0);
 		positions[9] = new Position("D7");
 		Chessboard board = new Chessboard();
 		Color black = Color.BLACK;

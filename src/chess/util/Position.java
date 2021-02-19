@@ -6,7 +6,7 @@ package chess.util;
 /**
  * @author ALIKOU DONGMO NELSON
  *
- * Représente la position d'une pièce lors d'une partie d'échecs
+ * Reprï¿½sente la position d'une piï¿½ce lors d'une partie d'ï¿½checs
  */
 public class Position {
 
@@ -16,26 +16,26 @@ public class Position {
 	private int x;
 
 	/**
-	 * ordonnée (comprise entre 0 et 7)
+	 * ordonnï¿½e (comprise entre 0 et 7)
 	 */
 	private int y;
 
 	/**
-	 * Constructeur de la classe Position crée une position à partir des coordonnées x et y données en paramètre.
+	 * Constructeur de la classe Position crï¿½e une position ï¿½ partir des coordonnï¿½es x et y donnï¿½es en paramï¿½tre.
 	 * @param x abscisse
-	 * @param y ordonnée
+	 * @param y ordonnï¿½e
 	 */
 	public Position(int x, int y){
-		if (x < 1 || y < 1 || x > 8 || y > 8){
+		if (x < 0 || y < 0 || x > 7 || y > 7){
 			throw new IllegalArgumentException("Position invalide" + x + " " + y);
 		}
-		this.x = x - 1;
-		this.y = y - 1;
+		this.x = x;
+		this.y = y;
 	}
 
 	/**
-	 * Constructeur de la classe Position crée une position à partir des coordonnées x et y données en paramètre.
-	 * @param algebraicNotation chaîne de 2 caractères représentant une case de l'échiquier en notation algébrique
+	 * Constructeur de la classe Position crï¿½e une position ï¿½ partir des coordonnï¿½es x et y donnï¿½es en paramï¿½tre.
+	 * @param algebraicNotation chaï¿½ne de 2 caractï¿½res reprï¿½sentant une case de l'ï¿½chiquier en notation algï¿½brique
 	 */
 	public Position(String algebraicNotation){
 
@@ -60,7 +60,7 @@ public class Position {
 			break;
 
 			default :
-				throw new IllegalArgumentException("Première lettre de la position invalide");
+				throw new IllegalArgumentException("Premiï¿½re lettre de la position invalide");
 
 		}
 
@@ -72,7 +72,7 @@ public class Position {
 	}
 
 	/**
-	 * Accesseur à l'abscisse de la position
+	 * Accesseur ï¿½ l'abscisse de la position
 	 * @return l'abscisse de la position
 	 */
 	public int getX() {
@@ -80,26 +80,26 @@ public class Position {
 	}
 
 	/**
-	 * Accesseur à l'ordonnée de la position
-	 * @return l'ordonnée de la position
+	 * Accesseur ï¿½ l'ordonnï¿½e de la position
+	 * @return l'ordonnï¿½e de la position
 	 */
 	public int getY() {
 		return y;
 	}
 
 	/**
-	 * Determine si la position actuelle est sur la même ligne qu'une autre passée en paramètre.
+	 * Determine si la position actuelle est sur la mï¿½me ligne qu'une autre passï¿½e en paramï¿½tre.
 	 * @param otherPosition l'autre position
-	 * @return true si laposition courante est sur la même ligne que otherPosition
+	 * @return true si laposition courante est sur la mï¿½me ligne que otherPosition
 	 */
 	public boolean isOnSameLineAs(Position otherPosition){
 		return this.y == otherPosition.y;
 	}
 
 	/**
-	 * Determine si la position actuelle est sur la même colonne qu'une autre passée en paramètre.
+	 * Determine si la position actuelle est sur la mï¿½me colonne qu'une autre passï¿½e en paramï¿½tre.
 	 * @param otherPosition l'autre position
-	 * @return true si laposition courante est sur la même colonne que otherPosition
+	 * @return true si laposition courante est sur la mï¿½me colonne que otherPosition
 	 */
 	public boolean isOnSameColumnAs(Position otherPosition){
 		return this.x == otherPosition.x;
@@ -107,9 +107,9 @@ public class Position {
 
 
 	/**
-	 * Determine si la position actuelle est sur la même diagonale qu'une autre passée en paramètre.
+	 * Determine si la position actuelle est sur la mï¿½me diagonale qu'une autre passï¿½e en paramï¿½tre.
 	 * @param otherPosition l'autre position
-	 * @return true si laposition courante est sur la même diagonale que otherPosition
+	 * @return true si laposition courante est sur la mï¿½me diagonale que otherPosition
 	 */
 	public boolean isOnSameDiagonalAs(Position otherPosition){
 		return Math.abs(otherPosition.x - this.x) == Math.abs(otherPosition.y - this.y);
@@ -130,9 +130,11 @@ public class Position {
 	}
 
 	public boolean equals(Object obj) {
-        if (obj == null) return false;
+        //Je verifie si mon objet est null auquel cas je retourne false
+		if (obj == null) return false;
 
-        if( ! (obj instanceof Position) ) return false;
+        //Je verifie si mon objet est bien de type position, dans le cas contraire je retourne false.
+		if( ! (obj instanceof Position) ) return false;
 
         Position otherPosition = (Position) obj;
 
@@ -144,8 +146,8 @@ public class Position {
     }
 
 	/**
-	 * Retourne une chaîne contenant la représentation de la position courante en notation algébrique
-	 * @return représentation de la position courante en notation algébrique
+	 * Retourne une chaï¿½ne contenant la reprï¿½sentation de la position courante en notation algï¿½brique
+	 * @return reprï¿½sentation de la position courante en notation algï¿½brique
 	 */
 	public String toAlgebraicNotation(){
 
@@ -171,7 +173,8 @@ public class Position {
 			break;
 		}
 
-		algebraicNotation += Character.forDigit(this.y + 1 ,10);
+		//J'ajoute Ã  la chaine la valeur de l'ordonnÃ©e et convertie en base dÃ©cimale.
+		algebraicNotation += Character.forDigit(this.y + 1,10);
 
 		return algebraicNotation;
 

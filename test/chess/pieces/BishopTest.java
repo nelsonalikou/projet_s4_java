@@ -18,10 +18,10 @@ public class BishopTest {
 	public void setUp() throws Exception {
 		//Position[] positions = {new Position("E5"),new Position(5,6),new Position(4,5),new Position(6,7)};
 		positions[0] = new Position("E5");
-		positions[1] = new Position(8,8);
-		positions[2] = new Position(8,2);
-		positions[3] = new Position(2,8);
-		positions[4] = new Position(1,1);
+		positions[1] = new Position(7,7);
+		positions[2] = new Position(7,1);
+		positions[3] = new Position(1,7);
+		positions[4] = new Position(0,0);
 		positions[5] = new Position("F5");
 		Chessboard board = new Chessboard();
 		Color black = Color.BLACK;
@@ -36,7 +36,7 @@ public class BishopTest {
 		assertTrue(bishops[0].isValidMove(positions[1]));
 	}
 
-	@Test
+	/*@Test
 	public void isValidMove_OneStepDownRight() {
 		assertTrue(bishops[0].isValidMove(positions[4]));
 	}
@@ -57,6 +57,6 @@ public class BishopTest {
 			assertFalse(bishops[1].isValidMove(positions[5]));
 		}
 		catch (IllegalArgumentException e) {}
-	}
+	}*/
 
 }

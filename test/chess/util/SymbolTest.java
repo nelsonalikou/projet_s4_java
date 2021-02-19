@@ -7,8 +7,8 @@ import org.junit.Test;
 public class SymbolTest {
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void BLACK_BISHOP_test() {
+		assertEquals(0x265D,Symbol.BLACK_BISHOP);
 	}
 
 }

@@ -21,9 +21,12 @@ public class King extends Piece{
 	@Override
 	public boolean isValidMove(Position destination) {
 		boolean valid = false;
-		if ((this.getPosition().isOnSameColumnAs(destination) || this.getPosition().isOnSameLineAs(destination) && this.getPosition().getManhattanDistance(destination) == 1)
-				||
-				(this.getPosition().isOnSameDiagonalAs(destination) && this.getPosition().getManhattanDistance(destination) == 2)){
+		if ((((this.getPosition().isOnSameColumnAs(destination) && !this.board.isPiecePresentOnSameColumnBetween(getPosition(), destination))
+				|| (this.getPosition().isOnSameLineAs(destination) && !this.board.isPiecePresentOnSameLineBetween(getPosition(), destination))) // && !this.board.isPiecePresentOnSameLineBetween(getPosition(), destination)
+					&& this.getPosition().getManhattanDistance(destination) == 1)
+						||
+						((this.getPosition().isOnSameDiagonalAs(destination) && !this.board.isPiecePresentOnSameDiagonalBetween(getPosition(), destination))
+								&& this.getPosition().getManhattanDistance(destination) == 2)){
 			valid = true;
 		}
 		return valid;

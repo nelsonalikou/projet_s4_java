@@ -16,19 +16,18 @@ public class KingTest {
 
 	@Before
 	public void setUp() throws Exception {
-		//Position[] positions = {new Position("E5"),new Position(5,6),new Position(4,5),new Position(6,7)};
 		positions[0] = new Position("E2");
-		positions[1] = new Position(5,3);
-		positions[2] = new Position(5,1);
-		positions[3] = new Position(4,2);
-		positions[4] = new Position(6,2);
-		positions[5] = new Position(4,1);
+		positions[1] = new Position(4,2);
+		positions[2] = new Position(4,0);
+		positions[3] = new Position(3,1);
+		positions[4] = new Position(5,1);
+		positions[5] = new Position(3,0);
 		Chessboard board = new Chessboard();
 		Color black = Color.BLACK;
 		Color white = Color.WHITE;
 		kings[0] = new King(board,positions[0],black);
 		kings[1] = new King(board,positions[1],white);
-		kings[0].moveTo(positions[3]);
+		//kings[0].moveTo(positions[3]);
 	}
 
 	@Test

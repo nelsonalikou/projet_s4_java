@@ -3,10 +3,6 @@
  */
 package chess;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-
 import chess.pieces.Bishop;
 import chess.pieces.King;
 import chess.pieces.Knight;
@@ -17,7 +13,6 @@ import chess.pieces.Rook;
 import chess.util.ChessMoveException;
 import chess.util.Color;
 import chess.util.Position;
-import chess.util.Symbol;
 
 /**
  * @author ALIKOU DONGMO NELSON
@@ -43,7 +38,7 @@ public class Game {
 	/**
 	 * couleur des pi�ces du joueur courant Rappel : les blancs jouent en premier.
 	 */
-	private Color currentColor = Color.BLACK;
+	private Color currentColor = Color.WHITE;
 
 	/**
 	 * Constructeur.
@@ -55,65 +50,41 @@ public class Game {
 		this.whitePlayerName = whitePlayerName;
 
 		this.board = new Chessboard();
+		this.board.createPieces();
 
-		Map<Position, Piece> initial_board = new HashMap<>();
+		/*for(int colonnes = 0; colonnes < 8; colonnes++){
+			for(int lignes = 0; lignes < 8; lignes++){
 
-		//Piece[] pieces = {};
-		for(int colonnes=1; colonnes < 9; colonnes++){
-			for(int lignes=1; lignes < 9; lignes++){
-				if(lignes == 1) {
+				//Condition de mise en place d'un pion
+				if(colonnes == 1 || colonnes == 6)
+					new Pawn(board,new Position(lignes,colonnes),(colonnes == 1) ? Color.WHITE : Color.BLACK);
 
-					Position pos = new Position(colonnes, lignes);
-					switch(colonnes){
+				//Condition de mise en place des autres pièces
+				if(colonnes == 0 || colonnes == 7){
+					Position pos = new Position(lignes,colonnes);
 
-					case 1 : initial_board.put(pos, new Rook(this.board,pos,Color.BLACK));
-					break;
-					case 2 : initial_board.put(pos, new Knight(this.board,pos,Color.BLACK));
-					break;
-					case 3 : initial_board.put(pos, new Bishop(this.board,pos,Color.BLACK));
-					break;
-					case 4 : initial_board.put(pos, new King(this.board,pos,Color.BLACK));
-					break;
-					case 5 : initial_board.put(pos, new Queen(this.board,pos,Color.BLACK));
-					break;
-					case 6 : initial_board.put(pos, new Bishop(this.board,pos,Color.BLACK));
-					break;
-					case 7 : initial_board.put(pos, new Knight(this.board,pos,Color.BLACK));
-					break;
-					case 8 : initial_board.put(pos, new Rook(this.board,pos,Color.BLACK));
-					break;
-					}
+					switch(lignes){
 
-				}else if(lignes == 2) {
-					Position pos = new Position(colonnes, lignes);
-					initial_board.put(pos, new Pawn(this.board,pos,Color.BLACK));
-				}else if (lignes == 7) {
-					Position pos = new Position(colonnes, lignes);
-					initial_board.put(pos, new Pawn(this.board,pos,Color.WHITE));
-				}else if (lignes == 8) {
-					Position pos = new Position(colonnes, lignes);
-					switch(colonnes){
-
-					case 1 : initial_board.put(pos, new Rook(this.board,pos,Color.WHITE));
+					case 0 : new Rook(board,pos,(colonnes == 0) ? Color.WHITE : Color.BLACK);
 					break;
-					case 2 : initial_board.put(pos, new Knight(this.board,pos,Color.WHITE));
+					case 1 : new Knight(board,pos,(colonnes == 0) ? Color.WHITE : Color.BLACK);
 					break;
-					case 3 : initial_board.put(pos, new Bishop(this.board,pos,Color.WHITE));
+					case 2 : new Bishop(board,pos,(colonnes == 0) ? Color.WHITE : Color.BLACK);
 					break;
-					case 4 : initial_board.put(pos, new King(this.board,pos,Color.WHITE));
+					case 3 : new King(board,pos,(colonnes == 0) ? Color.WHITE : Color.BLACK);
 					break;
-					case 5 : initial_board.put(pos, new Queen(this.board,pos,Color.WHITE));
+					case 4 : new Queen(board,pos,(colonnes == 0) ? Color.WHITE : Color.BLACK);
 					break;
-					case 6 : initial_board.put(pos, new Bishop(this.board,pos,Color.WHITE));
+					case 5 : new Bishop(board,pos,(colonnes == 0) ? Color.WHITE : Color.BLACK);
 					break;
-					case 7 : initial_board.put(pos, new Knight(this.board,pos,Color.WHITE));
+					case 6 : new Knight(board,pos,(colonnes == 0) ? Color.WHITE : Color.BLACK);
 					break;
-					case 8 : initial_board.put(pos, new Rook(this.board,pos,Color.WHITE));
+					case 7 : new Rook(board,pos,(colonnes == 0) ? Color.WHITE : Color.BLACK);
 					break;
 					}
 				}
 			}
-		}
+		}*/
 
 		System.out.println(this.board.toString());
 
@@ -150,31 +121,28 @@ public class Game {
 	 * @throws ChessMoveException si la case de d�part est vide, si elle contient une pi�ce de l'adversaire, ou si le d�placement est invalide.
 	 */
 	public void turn(Position start ,Position end) throws ChessMoveException{
-		System.out.println(start.toString() + " en" + end.toString());
 
 		Piece piece_a_bouger = this.board.getPiece(start);
 		if(piece_a_bouger == null)
 		{
 			throw new ChessMoveException("no chess piece here", start, end);
 		}else if(!(getCurrentColor() == this.board.getPiece(start).getColor())){
+			System.out.println(this.board.getPiece(start).getColor());
 			throw new ChessMoveException("It'is not your turn", start, end);
 		}else if(!this.board.getPiece(start).isValidMove(end)){
 			throw new ChessMoveException("start Position or end Position invalid", start, end);
 		}
-				/*
-				this.board.isPiecePresentOnSameColumnBetween(start, end)
-				||
-				this.board.isPiecePresentOnSameDiagonalBetween(start, end)
-				||
-				this.board.isPiecePresentOnSameLineBetween(start, end)*/
+
 		//Changement de joueur
 		if (getCurrentColor() == Color.WHITE) {
-			System.out.println(getBlackPayerName() + " joue ");
+			System.out.print(getBlackPayerName() + " joue ");
 			this.currentColor = Color.BLACK;
 		}else{
-			System.out.println(getWhitePlayerName() + " joue ");
+			System.out.print(getWhitePlayerName() + " joue ");
 			this.currentColor = Color.WHITE;
 		}
+
+		System.out.println(start.toString() + " en" + end.toString());
 
 
 
@@ -185,30 +153,42 @@ public class Game {
 		System.out.println(this.board.toString());
 	}
 
+	public Chessboard getBoard(){
+		return this.board;
+	}
+
 	/**
 	 * Programme principal. Permet � deux joueurs de saisir leurs d�placements � tour de r�le, en affichant l'�chiquier apr�s chaque coup.
 	 * @param args arguments de ligne de commande, pas utilis�s.
 	 * @throws ChessMoveException
 	 */
-	public static void main(String[] args) throws ChessMoveException {
+	/*public static void main(String[] args) throws ChessMoveException {
 
 		Game chessgame = new Game("Nelson", "Alexandre");
 
 		try ( Scanner scanner = new Scanner( System.in ) ) {
 			//Scanner scanner = new Scanner( System.in ) ;
-            System.out.print( "Veuillez saisir un premier entier : " );
-            String move = scanner.next();
+			int nbTours = 0;
+			while(nbTours < 5)
+			{
+
+				System.out.print( "Veuillez saisir un déplacement : " );
+	            String move = scanner.next();
 
 
-            System.out.printf( "La position est %s ", move);
-            Position start = new Position(move.substring(0,2));
-            Position end = new Position(move.substring(3));
-            chessgame.turn(start, end);
+	            System.out.printf( "La position est %s ", move);
+	            Position start = new Position(move.substring(0,2));
+	            Position end = new Position(move.substring(3));
+	            chessgame.turn(start, end);
 
-        }catch(Exception e){
-        	System.out.println(e);
-        }
+	            nbTours++;
+			}
+	    }catch(Exception e){
+	        System.out.println(e);
 
-	}
+	    }
+
+
+	}*/
 
 }

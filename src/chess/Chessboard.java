@@ -1,7 +1,15 @@
 package chess;
 
+import chess.pieces.Bishop;
+import chess.pieces.King;
+import chess.pieces.Knight;
+import chess.pieces.Pawn;
 import chess.pieces.Piece;
+import chess.pieces.Queen;
+import chess.pieces.Rook;
+import chess.util.Color;
 import chess.util.Position;
+import chess.util.Symbol;
 
 /**
  *
@@ -24,35 +32,53 @@ public class Chessboard {
 	}
 
 	/**
+	 * Fonction de crétion de spièces à inserer dans le plateau
+	 */
+	public Piece[][] createPieces(){
+		for(int colonnes = 0; colonnes < pieces.length; colonnes++){
+			for(int lignes = 0; lignes < pieces.length; lignes++){
+
+				//Condition de mise en place d'un pion
+				if(colonnes == 1 || colonnes == 6)
+					new Pawn(this,new Position(lignes,colonnes),(colonnes == 1) ? Color.WHITE : Color.BLACK);
+
+				//Condition de mise en place des autres pièces
+				if(colonnes == 0 || colonnes == 7){
+					Position pos = new Position(lignes,colonnes);
+
+					switch(lignes){
+
+					case 0 : new Rook(this,pos,(colonnes == 0) ? Color.WHITE : Color.BLACK);
+					break;
+					case 1 : new Knight(this,pos,(colonnes == 0) ? Color.WHITE : Color.BLACK);
+					break;
+					case 2 : new Bishop(this,pos,(colonnes == 0) ? Color.WHITE : Color.BLACK);
+					break;
+					case 3 : new King(this,pos,(colonnes == 0) ? Color.WHITE : Color.BLACK);
+					break;
+					case 4 : new Queen(this,pos,(colonnes == 0) ? Color.WHITE : Color.BLACK);
+					break;
+					case 5 : new Bishop(this,pos,(colonnes == 0) ? Color.WHITE : Color.BLACK);
+					break;
+					case 6 : new Knight(this,pos,(colonnes == 0) ? Color.WHITE : Color.BLACK);
+					break;
+					case 7 : new Rook(this,pos,(colonnes == 0) ? Color.WHITE : Color.BLACK);
+					break;
+					}
+				}
+			}
+		}
+		return this.pieces;
+	}
+
+	/**
 	 * Retourne la pièce de la case (x,y) de l'échiquier ou null si la case est vide
 	 * @param x abscisse de la case
 	 * @param y ordonnée de la case
 	 * @return pièce de la case (x,y) de l'echequier
 	 */
 	public Piece getPiece(int x, int y){
-		int newy = y;
-
-		switch(y){
-
-		case 1 : newy +=  7;
-		break;
-		case 2 : newy +=  5;
-		break;
-		case 3 : newy +=  3;
-		break;
-		case 4 : newy +=  1;
-		break;
-		case 5 : newy +=  -1;
-		break;
-		case 6 : newy +=  -3;
-		break;
-		case 7 : newy +=  -5;
-		break;
-		case 8 : newy +=  -7;
-		break;
-		}
-
-		return this.pieces[newy-1][x-1];
+		return this.pieces[y][x];
 	}
 
 	/**
@@ -61,29 +87,7 @@ public class Chessboard {
 	 * @return pièce de la case indiquée par pos
 	 */
 	public Piece getPiece(Position pos){
-		int newy = pos.getY();
-
-		switch(pos.getY() + 1){
-
-		case 1 : newy +=  7;
-		break;
-		case 2 : newy +=  5;
-		break;
-		case 3 : newy +=  3;
-		break;
-		case 4 : newy +=  1;
-		break;
-		case 5 : newy +=  -1;
-		break;
-		case 6 : newy +=  -3;
-		break;
-		case 7 : newy +=  -5;
-		break;
-		case 8 : newy +=  -7;
-		break;
-		}
-
-		return this.pieces[newy][pos.getX()];
+		return this.pieces[pos.getY()][pos.getX()];
 	}
 
 	/**
@@ -99,45 +103,30 @@ public class Chessboard {
 			throw new IllegalArgumentException("start Position or end Position invalid : column move");
 
 		int cpt;
+		//je calcule la distance entre les deux positions
 		int dis = Math.abs(start.getY() - end.getY());
 
-		if(start.getY() - end.getY() < 0){
+		if(start.getY() - end.getY() > 0){
 			 cpt = end.getY();
 		}else{
 			 cpt = start.getY();
 		}
 
+		 System.out.println("les Y col" + "start y = " + start.getY() + " end y = " + end.getY());
 
 		int newy = cpt;
-
-		switch(cpt + 1){
-
-		case 1 : newy +=  7;
-		break;
-		case 2 : newy +=  5;
-		break;
-		case 3 : newy +=  3;
-		break;
-		case 4 : newy +=  1;
-		break;
-		case 5 : newy +=  -1;
-		break;
-		case 6 : newy +=  -3;
-		break;
-		case 7 : newy +=  -5;
-		break;
-		case 8 : newy +=  -7;
-		break;
-		}
 
 		newy++;
 		cpt = newy;
 
 	    while (newy < (cpt + dis -1) && present == false) {
+	    	System.out.println("entree boucle col" + newy + " " + start.getX());
 	    	if(this.pieces[newy][start.getX()] != null){
 				present = true;
+				 System.out.println(this.pieces[newy][start.getX()].getSymbol());
 			}
 	      newy++;
+	      System.out.println("sortie boucle col" + newy + " " + start.getX());
 	    }
 
 		return present;
@@ -159,44 +148,32 @@ public class Chessboard {
 
 		int dis = Math.abs(start.getY() - end.getY());
 
+		//comparaison des ordonnées des points
 		if(start.getY() - end.getY() < 0){
-			 cptY = end.getY();
-			 cptX = end.getX();
-			 cptx = start.getX();
-		}else{
+			//sauvegarde de la plus petite odonnée selon le cas
 			 cptY = start.getY();
 			 cptX = start.getX();
 			 cptx = end.getX();
+		}else{
+			 cptY = end.getY();
+			 cptX = end.getX();
+			 cptx = start.getX();
 		}
+
+		System.out.println("les Y col" + "start y = " + start.getY() + " end y = " + end.getY());
+		System.out.println("les X lig" + "start x = " + start.getX() + " end x = " + end.getX());
+
 
 		int newy = cptY;
 
-		switch(cptY + 1){
-
-		case 1 : newy +=  7;
-		break;
-		case 2 : newy +=  5;
-		break;
-		case 3 : newy +=  3;
-		break;
-		case 4 : newy +=  1;
-		break;
-		case 5 : newy +=  -1;
-		break;
-		case 6 : newy +=  -3;
-		break;
-		case 7 : newy +=  -5;
-		break;
-		case 8 : newy +=  -7;
-		break;
-		}
-
 		newy++;
 		cptY = newy;
-
-	    while (newy < (cptY + dis) && present == false) {
+		System.out.println("entree boucle dia" + newy + " " + cptX);
+	    while (newy < (cptY + dis -1) && present == false) {
+	    	System.out.println("entree boucle dia " + newy + " " + cptX);
 	    	if(this.pieces[newy][cptX] != null){
 				present = true;
+				 System.out.println(this.pieces[newy][cptX].getSymbol());
 			}
 
 	    	if(cptX > cptx){
@@ -206,6 +183,8 @@ public class Chessboard {
 	    		cptX++;
 	    	}
 	      newy++;
+	      System.out.println("sortie boucle dia " + newy + " " + cptX + " " + present);
+
 	    }
 
 
@@ -224,45 +203,29 @@ public class Chessboard {
 		if(!start.isOnSameLineAs(end))
 			throw new IllegalArgumentException("start Position or end Position invalid : line move");
 
-		int cpt;
+		//compteur sur X : l'abscisse de position
+		int cptX;
 		//distance entre les abscisses des deux positions.
 		int dis = Math.abs(start.getX() - end.getX());
 
 		if(start.getX() - end.getX() < 0){
-			 cpt = start.getX() ;
+			 cptX = start.getX() ;
 		}else{
-			 cpt = end.getX();
+			 cptX = end.getX();
 		}
 
+		System.out.println("les X lig" + "start x = " + start.getX() + " end x = " + end.getX());
 
-		int newy = start.getY();
-
-		switch(start.getY() + 1){
-
-		case 1 : newy +=  7;
-		break;
-		case 2 : newy +=  5;
-		break;
-		case 3 : newy +=  3;
-		break;
-		case 4 : newy +=  1;
-		break;
-		case 5 : newy +=  -1;
-		break;
-		case 6 : newy +=  -3;
-		break;
-		case 7 : newy +=  -5;
-		break;
-		case 8 : newy +=  -7;
-		break;
-		}
-
-		int cpt0 = cpt;
-	    while (cpt < (cpt0 + dis) && present == false) {
-	    	if(this.pieces[newy][cpt] != null){
+		cptX++;
+		int cpt0 = cptX;
+	    while (cptX < (cpt0 + dis - 2) && present == false) {
+	    	System.out.println("entree boucle col" + start.getY() + " " + cptX);
+	    	if(this.pieces[start.getY()][cptX] != null){
 				present = true;
+				 System.out.println(this.pieces[start.getY()][cptX].getSymbol());
 			}
-	    	cpt++;
+	    	cptX++;
+	    	System.out.println("sortie boucle lig" + start.getY() + " " + cptX);
 	    }
 
 		return present;
@@ -275,29 +238,7 @@ public class Chessboard {
 	 * @param newPiece nouvelle pièce de la case
 	 */
 	public void setPiece(Position pos, Piece newPiece){
-		int newy = pos.getY();
-
-		switch(pos.getY() + 1){
-
-		case 1 : newy +=  7;
-		break;
-		case 2 : newy +=  5;
-		break;
-		case 3 : newy +=  3;
-		break;
-		case 4 : newy +=  1;
-		break;
-		case 5 : newy +=  -1;
-		break;
-		case 6 : newy +=  -3;
-		break;
-		case 7 : newy +=  -5;
-		break;
-		case 8 : newy +=  -7;
-		break;
-		}
-
-		this.pieces[newy][pos.getX()] = newPiece;
+		this.pieces[pos.getY()][pos.getX()] = newPiece;
 	}
 
 	/**
@@ -307,6 +248,7 @@ public class Chessboard {
 		//Retour à la ligne
 		char L = '\n';
 
+		//Tableau des lettres devant apparaitre sur l'echiquier
 		char[] lettres = {'A','B','C','D','E','F','G','H'};
 		StringBuilder board = new StringBuilder(5000);
 
@@ -339,7 +281,7 @@ public class Chessboard {
 				if (this.pieces[lignes][colonnes] == null) {
 					board.append("  ");
 				}else{
-					board.append(" " + this.pieces[lignes][colonnes].getSymbol());
+					board.append(" " + String.format("%2s",this.pieces[lignes][colonnes].getSymbol()));
 				}
 				if(colonnes == this.pieces[lignes].length - 1){
 					board.append("┃");

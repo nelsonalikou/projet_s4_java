@@ -18,11 +18,11 @@ public class PositionTest {
 	public void setUp() throws IllegalArgumentException {
 
 		positions[0] = new Position("E5");
-		positions[1] = new Position(5,6);
-		positions[2] = new Position(4,5);
-		positions[3] = new Position(6,7);
-		positions[4] = new Position(5,5);
-		positions[5] = new Position(5,5);
+		positions[1] = new Position(4,5);
+		positions[2] = new Position(3,4);
+		positions[3] = new Position(5,6);
+		positions[4] = new Position(4,4);
+		positions[5] = new Position(4,4);
 
 	}
 
@@ -30,7 +30,7 @@ public class PositionTest {
 	public void isOnSameLineAs_verification() {
 		try {
 			assertTrue(positions[0].isOnSameLineAs(positions[2]));
-			//fail("IllegalArgumentException n'a pas été lancée");
+			//fail("IllegalArgumentException n'a pas ï¿½tï¿½ lancï¿½e");
 			}
 		catch (IllegalArgumentException e) {}
 	}

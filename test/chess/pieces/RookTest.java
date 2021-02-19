@@ -17,16 +17,14 @@ public class RookTest {
 	@Before
 	public void setUp() throws Exception {
 		positions[0] = new Position("E5");
-		positions[1] = new Position(8,5);
-		positions[2] = new Position(1,5);
-		positions[3] = new Position(5,1);
-		positions[4] = new Position(5,7);
-		positions[5] = new Position(6,6);
+		positions[1] = new Position(7,4);
+		positions[2] = new Position(0,4);
+		positions[3] = new Position(4,0);
+		positions[4] = new Position(4,6);
+		positions[5] = new Position(5,5);
 		Chessboard board = new Chessboard();
-		Color black = Color.BLACK;
-		Color white = Color.WHITE;
-		rooks[0] = new Rook(board,positions[0],black);
-		rooks[1] = new Rook(board,positions[1],white);
+		rooks[0] = new Rook(board,positions[0],Color.BLACK);
+		rooks[1] = new Rook(board,positions[1],Color.WHITE);
 		rooks[0].moveTo(positions[3]);
 	}
 
