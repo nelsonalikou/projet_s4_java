@@ -4,6 +4,7 @@
 package chess.pieces;
 
 import chess.Chessboard;
+import chess.util.ChessMoveException;
 import chess.util.Color;
 import chess.util.Position;
 import chess.util.Symbol;
@@ -22,13 +23,14 @@ public class Knight extends Piece{
 	@Override
 	public boolean isValidMove(Position destination) {
 		boolean valid = false;
-		if (this.getPosition().getManhattanDistance(destination) == 3
+		if ((this.getPosition().getManhattanDistance(destination) == 3
 				&&
 				!this.getPosition().isOnSameColumnAs(destination)
 				&&
 				!this.getPosition().isOnSameLineAs(destination)
 				&&
-				!this.getPosition().isOnSameDiagonalAs(destination)){
+				!this.getPosition().isOnSameDiagonalAs(destination))
+				&& !this.isTheSameColor(destination)){
 			valid = true;
 		}
 		return valid;

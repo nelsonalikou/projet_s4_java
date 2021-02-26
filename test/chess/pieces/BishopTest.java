@@ -36,7 +36,7 @@ public class BishopTest {
 		assertTrue(bishops[0].isValidMove(positions[1]));
 	}
 
-	/*@Test
+	@Test
 	public void isValidMove_OneStepDownRight() {
 		assertTrue(bishops[0].isValidMove(positions[4]));
 	}
@@ -57,6 +57,6 @@ public class BishopTest {
 			assertFalse(bishops[1].isValidMove(positions[5]));
 		}
 		catch (IllegalArgumentException e) {}
-	}*/
+	}
 
 }

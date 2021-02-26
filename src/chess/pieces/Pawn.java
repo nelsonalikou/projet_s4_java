@@ -30,14 +30,14 @@ public class Pawn extends Piece{
 	@Override
 	public boolean isValidMove(Position destination) {
 		boolean valid = false;
-		if (this.getPosition().isOnSameColumnAs(destination) && !this.board.isPiecePresentOnSameColumnBetween(getPosition(), destination)){
+		if (this.getPosition().isOnSameColumnAs(destination) && !this.board.isPiecePresentOnSameColumnBetween(getPosition(), destination) && !this.isTheSameColor(destination) && this.board.getPiece(destination) == null){
 			if(this.notMovedYet && this.getPosition().getManhattanDistance(destination) == 2){
 				valid = true;
 			}
-			else if(this.getPosition().getManhattanDistance(destination) == 1){
+			else if(this.getPosition().getManhattanDistance(destination) == 1 && this.board.getPiece(destination) == null){
 				valid = true;
 			}
-		}else if(this.getPosition().isOnSameDiagonalAs(destination) && !this.board.isPiecePresentOnSameDiagonalBetween(getPosition(), destination) && this.getPosition().getManhattanDistance(destination) == 2){
+		}else if(this.getPosition().isOnSameDiagonalAs(destination) && !this.board.isPiecePresentOnSameDiagonalBetween(getPosition(), destination) && this.getPosition().getManhattanDistance(destination) == 2 && !this.isTheSameColor(destination) && this.board.getPiece(destination) != null){
 			valid = true;
 		}
 		return valid;

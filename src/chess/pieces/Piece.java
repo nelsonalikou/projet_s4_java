@@ -132,5 +132,26 @@ public abstract class Piece {
 		public abstract boolean isValidMove(Position destination);
 
 
+		/**
+		 * teste la couleur de la pièce suitée à la destination
+		 * @param destination position de la case de destination du déplacement
+		 * @return boolean true si la pièce est de meme couleur que celle situé à la position destination.
+		 * @throws ChessMoveException
+		 */
+		public boolean isTheSameColor(Position destination){
+			boolean same = false;
+			System.out.println(  "meme couleur ? " + !(this.board.getPiece(destination) == null || this.getColor() != this.board.getPiece(destination).getColor() && !this.isTheSameColor(destination)));
+			if(!(this.board.getPiece(destination) == null || this.getColor() != this.board.getPiece(destination).getColor() && !this.isTheSameColor(destination))){
+				same = true;
+				//System.out.println("Deplacement impossible, on ne peut pas capturer les pièces de la meme couleur que la notre");
+				try {
+					throw new ChessMoveException("Déplacement impossible car on ne peut peut pas capturer sa propre pièce",getPosition(),destination);
+				} catch (ChessMoveException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			return same;
+		}
 
 }

@@ -4,6 +4,7 @@
 package chess.pieces;
 
 import chess.Chessboard;
+import chess.util.ChessMoveException;
 import chess.util.Color;
 import chess.util.Position;
 import chess.util.Symbol;
@@ -21,12 +22,13 @@ public class King extends Piece{
 	@Override
 	public boolean isValidMove(Position destination) {
 		boolean valid = false;
-		if ((((this.getPosition().isOnSameColumnAs(destination) && !this.board.isPiecePresentOnSameColumnBetween(getPosition(), destination))
+		if (((((this.getPosition().isOnSameColumnAs(destination) && !this.board.isPiecePresentOnSameColumnBetween(getPosition(), destination))
 				|| (this.getPosition().isOnSameLineAs(destination) && !this.board.isPiecePresentOnSameLineBetween(getPosition(), destination))) // && !this.board.isPiecePresentOnSameLineBetween(getPosition(), destination)
 					&& this.getPosition().getManhattanDistance(destination) == 1)
 						||
-						((this.getPosition().isOnSameDiagonalAs(destination) && !this.board.isPiecePresentOnSameDiagonalBetween(getPosition(), destination))
-								&& this.getPosition().getManhattanDistance(destination) == 2)){
+						((this.getPosition().isOnSameDiagonalAs(destination) && !this.board.isPiecePresentOnSameDiagonalBetween(getPosition(), destination)))
+								&& this.getPosition().getManhattanDistance(destination) == 2)
+									&& !this.isTheSameColor(destination)){
 			valid = true;
 		}
 		return valid;
