@@ -139,17 +139,18 @@ public abstract class Piece {
 		 * @throws ChessMoveException
 		 */
 		public boolean isTheSameColor(Position destination){
-			boolean same = false;
-			System.out.println(  "meme couleur ? " + !(this.board.getPiece(destination) == null || this.getColor() != this.board.getPiece(destination).getColor() && !this.isTheSameColor(destination)));
-			if(!(this.board.getPiece(destination) == null || this.getColor() != this.board.getPiece(destination).getColor() && !this.isTheSameColor(destination))){
-				same = true;
-				//System.out.println("Deplacement impossible, on ne peut pas capturer les pièces de la meme couleur que la notre");
-				try {
+			boolean same = true;
+			System.out.println(this.board.getPiece(destination) == null);
+			System.out.println(  "meme couleur ?" + !(this.board.getPiece(destination) == null || this.getColor() != this.board.getPiece(destination).getColor() && !this.isTheSameColor(destination)));
+			if((this.board.getPiece(destination) == null || this.getColor() != this.board.getPiece(destination).getColor() && !this.isTheSameColor(destination))){
+				same = false;
+				/*try {
 					throw new ChessMoveException("Déplacement impossible car on ne peut peut pas capturer sa propre pièce",getPosition(),destination);
 				} catch (ChessMoveException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				}*/
+				//throw new ChessMoveException("Déplacement impossible car on ne peut peut pas capturer sa propre pièce",getPosition(),destination);
 			}
 			return same;
 		}

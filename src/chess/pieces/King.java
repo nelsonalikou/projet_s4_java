@@ -34,4 +34,10 @@ public class King extends Piece{
 		return valid;
 	}
 
+
+
+	/*public boolean checking(){
+		return false;
+	}*/
+
 }

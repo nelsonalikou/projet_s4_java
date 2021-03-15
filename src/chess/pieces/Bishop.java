@@ -25,7 +25,7 @@ public class Bishop extends Piece{
 		boolean valid = false;
 		//getPosition().isOnSameDiagonalAs(destination)
 		if ((this.getPosition().isOnSameDiagonalAs(destination) && !this.board.isPiecePresentOnSameDiagonalBetween(getPosition(), destination))
-				&& !this.isTheSameColor(destination)){
+				/*&& !this.isTheSameColor(destination)*/){
 			valid = true;
 
 			/*if(this.board.getPiece(destination) == null || this.board.getPiece(destination).getColor() == this.board.getPiece(destination).getColor()){

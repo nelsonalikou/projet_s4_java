@@ -30,7 +30,7 @@ public class Knight extends Piece{
 				!this.getPosition().isOnSameLineAs(destination)
 				&&
 				!this.getPosition().isOnSameDiagonalAs(destination))
-				&& !this.isTheSameColor(destination)){
+				/*&& !this.isTheSameColor(destination)*/){
 			valid = true;
 		}
 		return valid;

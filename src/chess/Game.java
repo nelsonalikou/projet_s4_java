@@ -3,6 +3,8 @@
  */
 package chess;
 
+import java.util.HashMap;
+
 import chess.pieces.Bishop;
 import chess.pieces.King;
 import chess.pieces.Knight;
@@ -41,6 +43,11 @@ public class Game {
 	private Color currentColor = Color.WHITE;
 
 	/**
+	 * Historique des dépalcements.
+	 */
+	private HashMap<Piece,Chessboard> historique;
+
+	/**
 	 * Constructeur.
 	 * @param whitePlayerName nom du joueur ayant les pi�ces blanches
 	 * @param blackPayerName nom du joueur ayant les pi�ces noires
@@ -52,39 +59,7 @@ public class Game {
 		this.board = new Chessboard();
 		this.board.createPieces();
 
-		/*for(int colonnes = 0; colonnes < 8; colonnes++){
-			for(int lignes = 0; lignes < 8; lignes++){
-
-				//Condition de mise en place d'un pion
-				if(colonnes == 1 || colonnes == 6)
-					new Pawn(board,new Position(lignes,colonnes),(colonnes == 1) ? Color.WHITE : Color.BLACK);
-
-				//Condition de mise en place des autres pièces
-				if(colonnes == 0 || colonnes == 7){
-					Position pos = new Position(lignes,colonnes);
-
-					switch(lignes){
-
-					case 0 : new Rook(board,pos,(colonnes == 0) ? Color.WHITE : Color.BLACK);
-					break;
-					case 1 : new Knight(board,pos,(colonnes == 0) ? Color.WHITE : Color.BLACK);
-					break;
-					case 2 : new Bishop(board,pos,(colonnes == 0) ? Color.WHITE : Color.BLACK);
-					break;
-					case 3 : new King(board,pos,(colonnes == 0) ? Color.WHITE : Color.BLACK);
-					break;
-					case 4 : new Queen(board,pos,(colonnes == 0) ? Color.WHITE : Color.BLACK);
-					break;
-					case 5 : new Bishop(board,pos,(colonnes == 0) ? Color.WHITE : Color.BLACK);
-					break;
-					case 6 : new Knight(board,pos,(colonnes == 0) ? Color.WHITE : Color.BLACK);
-					break;
-					case 7 : new Rook(board,pos,(colonnes == 0) ? Color.WHITE : Color.BLACK);
-					break;
-					}
-				}
-			}
-		}*/
+		historique = new HashMap<>();
 
 		System.out.println(this.board.toString());
 
@@ -133,6 +108,9 @@ public class Game {
 			throw new ChessMoveException("start Position or end Position invalid", start, end);
 		}
 
+		// Intégration du mouvement dans l'historique
+		historique.put(piece_a_bouger, this.board);
+
 		//Changement de joueur
 		if (getCurrentColor() == Color.WHITE) {
 			System.out.print(getBlackPayerName() + " joue ");
@@ -143,6 +121,12 @@ public class Game {
 		}
 
 		System.out.println(start.toString() + " en" + end.toString());
+
+		System.out.println("Historique des déplacements");
+		for (Piece key : historique.keySet())
+			System.out.println(key.toString());
+		/*for (Chessboard color : historique.values())
+			System.out.println("Valeur : " + color);*/
 
 
 
