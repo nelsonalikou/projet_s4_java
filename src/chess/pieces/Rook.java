@@ -27,7 +27,7 @@ public class Rook extends Piece{
 				||
 				(this.getPosition().isOnSameLineAs(destination)
 						&& !this.board.isPiecePresentOnSameLineBetween(getPosition(), destination)))
-								&& !this.isTheSameColor(destination)) {
+								/*&& !this.isTheSameColor(destination)*/) {
 			valid = true;
 		}
 

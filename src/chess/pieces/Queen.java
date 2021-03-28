@@ -27,7 +27,7 @@ public class Queen extends Piece{
 				(this.getPosition().isOnSameLineAs(destination) && !this.board.isPiecePresentOnSameLineBetween(getPosition(), destination))
 				||
 				(this.getPosition().isOnSameDiagonalAs(destination) && !this.board.isPiecePresentOnSameDiagonalBetween(getPosition(), destination)))
-				&& !this.isTheSameColor(destination)){
+				/*&& !this.isTheSameColor(destination)*/){
 			valid = true;
 		}
 		return valid;

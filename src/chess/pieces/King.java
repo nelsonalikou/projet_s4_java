@@ -28,7 +28,7 @@ public class King extends Piece{
 						||
 						((this.getPosition().isOnSameDiagonalAs(destination) && !this.board.isPiecePresentOnSameDiagonalBetween(getPosition(), destination)))
 								&& this.getPosition().getManhattanDistance(destination) == 2)
-									&& !this.isTheSameColor(destination)){
+									/*&& !this.isTheSameColor(destination)*/){
 			valid = true;
 		}
 		return valid;

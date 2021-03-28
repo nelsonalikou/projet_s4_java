@@ -37,7 +37,7 @@ public class Pawn extends Piece{
 			else if(this.getPosition().getManhattanDistance(destination) == 1 && this.board.getPiece(destination) == null){
 				valid = true;
 			}
-		}else if(this.getPosition().isOnSameDiagonalAs(destination) && !this.board.isPiecePresentOnSameDiagonalBetween(getPosition(), destination) && this.getPosition().getManhattanDistance(destination) == 2 && !this.isTheSameColor(destination) && this.board.getPiece(destination) != null){
+		}else if(this.getPosition().isOnSameDiagonalAs(destination) && !this.board.isPiecePresentOnSameDiagonalBetween(getPosition(), destination) && this.getPosition().getManhattanDistance(destination) == 2 /*&& !this.isTheSameColor(destination)*/ && this.board.getPiece(destination) != null){
 			valid = true;
 		}
 		return valid;

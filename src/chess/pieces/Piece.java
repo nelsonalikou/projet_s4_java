@@ -141,8 +141,8 @@ public abstract class Piece {
 		public boolean isTheSameColor(Position destination){
 			boolean same = true;
 			System.out.println(this.board.getPiece(destination) == null);
-			System.out.println(  "meme couleur ?" + !(this.board.getPiece(destination) == null || this.getColor() != this.board.getPiece(destination).getColor() && !this.isTheSameColor(destination)));
-			if((this.board.getPiece(destination) == null || this.getColor() != this.board.getPiece(destination).getColor() && !this.isTheSameColor(destination))){
+			System.out.println(  "meme couleur ?" + !(this.board.getPiece(destination) == null || this.getColor() != this.board.getPiece(destination).getColor() /*&& !this.isTheSameColor(destination)*/));
+			if((this.board.getPiece(destination) == null || this.getColor() != this.board.getPiece(destination).getColor() /*&& !this.isTheSameColor(destination)*/)){
 				same = false;
 				/*try {
 					throw new ChessMoveException("Déplacement impossible car on ne peut peut pas capturer sa propre pièce",getPosition(),destination);
