@@ -120,13 +120,13 @@ public class Chessboard {
 		cpt = newy;
 
 	    while (newy < (cpt + dis - 2) && present == false) {
-	    	System.out.println("entree boucle col" + newy + " " + start.getX());
+	    	//System.out.println("entree boucle col" + newy + " " + start.getX());
 	    	if(this.pieces[newy][start.getX()] != null){
 				present = true;
-				 System.out.println(this.pieces[newy][start.getX()].getSymbol());
+				 //System.out.println(this.pieces[newy][start.getX()].getSymbol());
 			}
 	      newy++;
-	      System.out.println("sortie boucle col" + newy + " " + start.getX());
+	      //System.out.println("sortie boucle col" + newy + " " + start.getX());
 	    }
 
 		return present;
@@ -160,20 +160,20 @@ public class Chessboard {
 			 cptx = start.getX();
 		}
 
-		System.out.println("les Y col" + "start y = " + start.getY() + " end y = " + end.getY());
-		System.out.println("les X lig" + "start x = " + start.getX() + " end x = " + end.getX());
+		//System.out.println("les Y col" + "start y = " + start.getY() + " end y = " + end.getY());
+		//System.out.println("les X lig" + "start x = " + start.getX() + " end x = " + end.getX());
 
 
 		int newy = cptY;
 
 		newy++;
 		cptY = newy;
-		System.out.println("entree boucle dia" + newy + " " + cptX);
+		//System.out.println("entree boucle dia" + newy + " " + cptX);
 	    while (newy < (cptY + dis - 2) && present == false) {
-	    	System.out.println("entree boucle dia " + newy + " " + cptX);
+	    	//System.out.println("entree boucle dia " + newy + " " + cptX);
 	    	if(this.pieces[newy][cptX] != null){
 				present = true;
-				 System.out.println(this.pieces[newy][cptX].getSymbol());
+				 //System.out.println(this.pieces[newy][cptX].getSymbol());
 			}
 
 	    	if(cptX > cptx){
@@ -183,7 +183,7 @@ public class Chessboard {
 	    		cptX++;
 	    	}
 	      newy++;
-	      System.out.println("sortie boucle dia " + newy + " " + cptX + " " + present);
+	      //System.out.println("sortie boucle dia " + newy + " " + cptX + " " + present);
 
 	    }
 

@@ -4,10 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.Scanner;
 
 import chess.util.*;
-
+import chess.pieces.*;
 import javax.swing.*;
 
 public class Frame extends JFrame{
@@ -47,6 +49,12 @@ public class Frame extends JFrame{
 		textArea.setEditable(false);
 
 		JButton jouer = new JButton("Jouer");
+		//JComboBox<String> historique = new JComboBox<String>();
+		final JPanel entete = new JPanel();
+		final JButton startGame = new JButton("Start");
+		entete.add(startGame);
+		JComboBox<String> historique = new JComboBox<String>();
+
 
 		jouer.setBounds(800, taille + 35, 100, 20);
 		jouer.addActionListener(new ActionListener(){
@@ -82,9 +90,43 @@ public class Frame extends JFrame{
 
 			            //jouer le son
 						new Audio("sound\\\\chess_move_sound.wav");
+						//historique.removeAllItems();
+						/*for (Piece piece : chessgame.historique.keySet()){
+
+			    			historique.addItem(piece.getPosition().toAlgebraicNotation() + " " + end.toString());
+			    		}*/
+						if(chessgame.historique.get(chessgame.getBoard().getPiece(new Position(end.toAlgebraicNotation()))) != null){
+							historique.addItem(start.toString() + end.toString());
+						}
+			            /*historique.addItemListener(new ItemListener(){
+							@Override
+							public void itemStateChanged(ItemEvent arg0) {
+								if(arg0.getStateChange() == ItemEvent.SELECTED){
+									String val = historique.getSelectedItem().toString();
+									chessgame.setBoard(chessgame.historique.get(chessgame.getBoard().getPiece(new Position(val)))) ;
+								}
+
+							}
+			            });*/
+			            historique.addActionListener(new ActionListener(){
+
+							@Override
+							public void actionPerformed(ActionEvent arg0) {
+								String val = historique.getSelectedItem().toString().substring(4);
+								System.out.println(val);
+
+								chessgame.setBoard(chessgame.historique.get(chessgame.getBoard().getPiece(new Position(val)))) ;
+								System.out.println(chessgame.getBoard().toString());
+							}
+
+			            });
+			    		entete.add(historique);
+
+
 
 			            //afficher le nouveau plateau
 			            displayGame(panel,chessgame,50,5,50);
+
 
 			            /*JTextField textField = new JTextField(5);
 			    		textField.setBounds(700, taille, 50, 20);*/
@@ -111,8 +153,17 @@ public class Frame extends JFrame{
 		});
 
 
-
-
+		//Redémarrage du jeu erreur de rafraichissement, mais redevient normal apres le premier coup
+		startGame.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				//new Audio("sound\\\\chess_move_sound.wav");
+				chessgame = new Game("Nelson", "Alexandre");
+	            displayGame(panel,chessgame,50,5,50);
+	            panel.repaint();
+				panel.revalidate();
+			}
+		});
 
 
 		this.add(jouer);
@@ -121,21 +172,14 @@ public class Frame extends JFrame{
 
 		this.add(textArea);
 
-		final JPanel entete = new JPanel();
 
-		final JButton start = new JButton("Start");
-		entete.add(start);
+
 
 		//AudioClip click;
-		start.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				new Audio("sound\\\\chess_move_sound.wav");
-			}
-		});
 
-		final JButton historique = new JButton("historique");
-		entete.add(historique);
+		final JLabel histo = new JLabel("Historique");
+
+		entete.add(histo);
 
 		this.add(panel);
 		this.add(entete,BorderLayout.NORTH);

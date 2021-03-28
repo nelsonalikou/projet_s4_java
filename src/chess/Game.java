@@ -45,7 +45,7 @@ public class Game {
 	/**
 	 * Historique des dépalcements.
 	 */
-	private HashMap<Piece,Chessboard> historique;
+	public HashMap<Piece,Chessboard> historique;
 
 	/**
 	 * Constructeur.
@@ -124,7 +124,7 @@ public class Game {
 
 		System.out.println("Historique des déplacements");
 		for (Piece key : historique.keySet())
-			System.out.println(key.toString());
+			System.out.println(key.getPosition().toString());
 		/*for (Chessboard color : historique.values())
 			System.out.println("Valeur : " + color);*/
 
@@ -134,12 +134,25 @@ public class Game {
 		System.out.println();
 		this.board.getPiece(start).moveTo(end);
 
+
+
 		System.out.println(this.board.toString());
 	}
 
 	public Chessboard getBoard(){
 		return this.board;
 	}
+
+
+	public void setBoard(Chessboard c){
+		this.board = c;
+	}
+	public Chessboard getHistorique(Position pos){
+		return historique.get(pos);
+	}
+
+
+
 
 	/**
 	 * Programme principal. Permet � deux joueurs de saisir leurs d�placements � tour de r�le, en affichant l'�chiquier apr�s chaque coup.
